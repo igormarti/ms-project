@@ -1,0 +1,15 @@
+FROM node:16
+
+WORKDIR /ms-users/
+
+COPY package.json yarn.lock /ms-users/
+
+RUN rm -rf node_modules && yarn install --frozen-lockfile
+
+COPY . .
+
+USER node
+
+EXPOSE 3002
+
+CMD yarn live-reload

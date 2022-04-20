@@ -1,0 +1,15 @@
+FROM node:16
+
+WORKDIR /api-gateway/
+
+COPY package.json yarn.lock /api-gateway/
+
+RUN yarn install --pure-lockfile
+
+COPY . .
+
+USER node
+
+EXPOSE 3000
+
+CMD yarn live-reload

@@ -1,0 +1,102 @@
+version: '3.7'
+networks:
+  msnetwork:
+    driver:
+      bridge
+services:
+    rabbitmq:
+        container_name: ms-rabbit
+        restart: always
+        image: rabbitmq:3-management
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        volumes:
+            - ./:/data
+        networks:
+            - msnetwork
+    api-gateway:
+        container_name: api-gateway
+        image: api-gateway
+        build:
+          context: ./api-gateway
+          dockerfile: DockerFile 
+        environment:
+                PORT: 3000
+        command:
+            - yarn
+            - live-reload
+        volumes:
+            - ./api-gateway:/api-gateway
+            - ./api-gateway/node_modules
+        ports:
+            - 3000:3000
+        networks:
+            - msnetwork
+    ms-products:
+        image: ms-products
+        build:
+          context: ./ms-products
+          dockerfile: DockerFile 
+        environment:
+            PORT: 3001
+        command:
+            - yarn
+            - live-reload
+        depends_on:
+            - mongoProducts
+        volumes:
+            - ./ms-products:/ms-products
+        ports:
+            - 3001:3001
+        networks:
+            - msnetwork
+    ms-users:
+        image: ms-users
+        build:
+          context: ./ms-users
+          dockerfile: DockerFile 
+        environment:
+            PORT: 3002
+        command:
+            - yarn
+            - live-reload
+        depends_on:
+            - mongoUsers
+        volumes:
+            - ./ms-users:/ms-users
+        ports:
+            - 3002:3002
+        networks:
+            - msnetwork
+    ms-orders:
+        image: ms-orders
+        build:
+            context: ./ms-orders
+            dockerfile: DockerFile
+        ports:
+            - 3003:8080
+        networks:
+            - msnetwork
+    mongoProducts:
+        image: mongo:5.0
+        restart: always
+        ports:
+            - 27017:27017
+        volumes:
+            - ~/apps/mongo:/data/db
+        env_file:
+            - ./ms-products/.env
+        networks:
+            - msnetwork
+    mongoUsers:
+        image: mongo:5.0
+        restart: always
+        ports:
+            - 27018:27017
+        volumes:
+            - ~/apps/mongo-users:/data/db
+        env_file:
+            - ./ms-users/.env
+        networks:
+            - msnetwork
