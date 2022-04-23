@@ -34,7 +34,7 @@ class Queue{
     }
 
     async notifyQueue(queueName, channel, msg){
-        await channel.sendToQueue(queueName, routing, Buffer.from(msg), {
+        await channel.sendToQueue(queueName, Buffer.from(msg), {
             header:{
                 contentType: 'applications/json'
             }
