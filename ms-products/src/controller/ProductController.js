@@ -17,6 +17,24 @@ class ProductController {
         }
     }
 
+    async show(req, res) {
+        try {
+            const {id} = req.params;
+
+            const product = await ProductService.getProductByID(id);
+
+            return res.status(201).json({
+                status:true,
+                product
+            });
+        } catch (error){
+            return res.json({
+                status: false,
+                msg: error.message
+            })
+        }
+    } 
+
     async all(req, res){
         try {
             const products = await ProductService.allProduct();

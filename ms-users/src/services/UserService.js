@@ -14,6 +14,18 @@ class UserService {
         return await User.findOne({email});
     }
 
+    async getUserByID(id){
+        const user = await User.findById(id);
+
+        if(!user) throw new Error("User not found");
+
+        return {
+            id: user._id,
+            name: user.name,
+            email: user.email,
+        }
+    }
+
     async singIn(user){
         const {email,password} = user;
 

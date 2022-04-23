@@ -28,7 +28,6 @@ services:
             - live-reload
         volumes:
             - ./api-gateway:/api-gateway
-            - ./api-gateway/node_modules
         ports:
             - 3000:3000
         networks:
