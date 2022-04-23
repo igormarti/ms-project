@@ -8,6 +8,8 @@ Project created using microservices architecture with gateway api using nodeJS, 
   <li><a href="https://docs.docker.com/compose/" target="_blank" >Docker Compose</a></li>
 </ul>  
 
+# Languages of each service
+
 <ul> 
   <li>api-gateway use NodeJS </li>
   <li>ms-users use NodeJS </li>
