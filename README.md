@@ -4,8 +4,8 @@ Project created using microservices architecture with gateway api using nodeJS, 
 # Requeriments
 
 <ul>
-  <li><a href="https://docs.docker.com/" >Docker</a></li>
-  <li><a href="https://docs.docker.com/compose/" >Docker Compose</a></li>
+  <li><a href="https://docs.docker.com/" target="_blank" >Docker</a></li>
+  <li><a href="https://docs.docker.com/compose/" target="_blank" >Docker Compose</a></li>
 </ul>  
 
 <ul> 
